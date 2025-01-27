@@ -15,16 +15,10 @@ fun WellnessScreen(modifier: Modifier = Modifier,
     Column(modifier = modifier) {
         StatefulCounter()
 
-        val list = remember { getWellnesTasks().toMutableStateList() }
 
-//        if want to use mutableStateListof Api
-//        val list = remember {
-//
-//            mutableStateListOf<WellnessTask>().apply { addAll(getWellnessTasks()) }
-//
-//        }
-
-        wellnessTasksList(list = list, onCloseTask = {task -> wellnessViewModel.remove(task) })
+        wellnessTasksList(list = wellnessViewModel.tasks,
+            onCheckedTask = {tasks, checked -> wellnessViewModel.changeTaskStatus(tasks, checked)},
+            onCloseTask = {tasks -> wellnessViewModel.remove(tasks) })
     }
 }
 
